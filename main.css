@@ -1,0 +1,88 @@
+body {
+  background-color:rgb(172, 166, 160);
+}
+.contaner {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+.header {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  color: rgb(0, 0, 255);
+  font-size: 32px;
+  text-align: center;
+}
+
+.filters,
+.inputForm,
+.tableForm {
+  background-color: rgb(179, 179, 179);
+  padding: 10px 5px;
+  border: 1px solid #000;
+}
+
+.inputForm,
+.tableForm {
+  border-top: none;
+}
+
+.tableForm {
+  border-right: none;
+}
+
+.fiters_header,
+.tableForm ,
+.inputForm {
+  font-size: 24px;
+  text-align: center;
+  color: rgb(153, 1, 1);
+}
+
+.tableForm ,
+.inputForm,
+.filters_list,
+.input_new_list {
+  font-size: 18px;
+}
+
+.filters_list,
+.input_new_list {
+  list-style-type: none;
+  margin: 0px 0px;
+  padding-left: 0;
+}
+
+.filter_label,
+.input_new_list {
+  color: rgb(2, 103, 121);
+  text-align: right;
+}
+.filter_input {
+  margin: 5px;
+  padding-left: 10px;
+}
+
+.filter_input_field {
+  padding-left: 20px;
+}
+
+.inputForm {
+  background-color: rgb(149, 193, 195);
+}
+
+.tableForm {
+  background-color: rgb(149, 152, 195);
+}
+
+.new_input_field {
+  padding-left: 0;
+}
+
+.new_input_field {
+  margin-bottom: 15px;
+  padding-right: 0;
+}
+
+.add_stud_btn {
+  margin-bottom: 15px;
+}

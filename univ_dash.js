@@ -1,1 +1,5 @@
-// JS
+(() => {
+  document.addEventListener('DOMContentLoaded',() => {
+    //
+  });
+})();

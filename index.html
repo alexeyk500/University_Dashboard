@@ -1,15 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>University Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" 
-          rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" 
-          crossorigin="anonymous">
-    <script defer src="./univ_dash.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>University Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+        rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="./main.css">
+
+  <script defer src="./univ_dash.js"></script>
 </head>
 <body>
-    
+    <!-- Заголовок Приложения -->
+    <h1 class="container header">Панель управления студентами</h1>
+    <!-- Фильтры для таблицы со студентами -->
+    <div class="container">
+      <div class="filters row align-items-center">
+        <h2 class="fiters_header col-4">Фильтры</h2>
+        <ul class="filters_list col-8">
+          <li class="filters_list_item">
+            <div class="row">
+              <div class="col-5 filter_label">
+                <label for="FNS" class="col-form-label">Ф.И.О. cтудента</label>
+              </div>
+              <div class="col-7 filter_input_field">
+                <input type="text" id="FNS" class="form-control filter_input" aria-describedby="students_fns">
+              </div>
+            </div>
+          </li>
+          <li class="filters_list_item">
+            <div class="row">
+              <div class="col-5 filter_label">
+                <label for="fakultet" class="col-form-label">Факультет обучения</label>
+              </div>
+              <div class="col-7 filter_input_field">
+                <input type="text" id="fakultet" class="form-control filter_input" aria-describedby="students_facultet">
+              </div>
+            </div>
+          </li>
+          <li class="filters_list_item">
+            <div class="row">
+              <div class="col-5 filter_label">
+                <label for="timeStart" class="col-form-label">Год начала обучения</label>
+              </div>
+              <div class="col-7 filter_input_field">
+                <input type="text" id="timeStart" class="form-control filter_input" aria-describedby="students_timeStart">
+              </div>
+            </div>
+          </li>
+          <li class="filters_list_item">
+            <div class="row">
+              <div class="col-5 filter_label">
+                <label for="timeFinish" class="col-form-label">Год начала обучения</label>
+              </div>
+              <div class="col-7 filter_input_field">
+                <input type="text" id="timeFinish" class="form-control filter_input" aria-describedby="students_timeFinish">
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Таблица и форма ввода нового студента -->
+    <div class="container">
+      <div class="tableForm_inputForm row align-items-top">
+        <!-- Таблица со студентами -->
+        <div class="tableForm col-7">Список студентов</div>
+
+        <!-- Форма ввода нового студента -->
+
+        <div class="inputForm col-5">Добавить студента
+          <form action="">
+            <ul class="input_new_list">
+              <li class="input_new_item">
+                <div class="row">
+                  <div class="col-4 name_label">
+                    <label for="name_label" class="col-form-label">Имя</label>
+                  </div>
+                  <div class="col-7 new_input_field">
+                    <input type="text" id="name_label" class="form-control filter_input">
+                  </div>
+                </div>
+              </li>
+              <li class="input_new_item">
+                <div class="row">
+                  <div class="col-4 name_label">
+                    <label for="surname_label" class="col-form-label">Фамилия</label>
+                  </div>
+                  <div class="col-7 new_input_field">
+                    <input type="text" id="surname_label" class="form-control filter_input">
+                  </div>
+                </div>
+              </li>
+              <li class="input_new_item">
+                <div class="row">
+                  <div class="col-4 name_label">
+                    <label for="midlename_label" class="col-form-label">Отчество</label>
+                  </div>
+                  <div class="col-7 new_input_field">
+                    <input type="text" id="midlename_label" class="form-control filter_input">
+                  </div>
+                </div>
+              </li>
+              <li class="input_new_item">
+                <div class="row">
+                  <div class="col-4 name_label">
+                    <label for="data_label" class="col-form-label">Дата рождения</label>
+                  </div>
+                  <div class="col-7 new_input_field">
+                    <input type="date" id="data_label" class="form-control filter_input">
+                  </div>
+                </div>
+              </li>
+              <li class="input_new_item">
+                <div class="row">
+                  <div class="col-4 name_label">
+                    <label for="year_label" class="col-form-label label_year_label">Год начала обучения</label>
+                  </div>
+                  <div class="col-7 new_input_field">
+                    <input type="text" id="year_label" class="form-control filter_input">
+                  </div>
+                </div>
+              </li>
+              <li class="input_new_item">
+                <div class="row">
+                  <div class="col-4 name_label">
+                    <label for="facultet_label" class="col-form-label">Факультет</label>
+                  </div>
+                  <div class="col-7 new_input_field">
+                    <input type="text" id="facultet_label" class="form-control filter_input">
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <button type="submit" class="add_stud_btn btn btn-primary">Добавить</button>
+          </form>
+
+          <!--
+          год начала обучения
+          факультет (строка) -->
+        </div>
+      </div>
+    </div>
+
 </body>
 </html>
