@@ -53,9 +53,9 @@ ul {
   text-align: right;
 }
 
-#okno:target {display: block;}
+/* #add_stud_form:target {display: block;} */
 
-#okno {
+#add_stud_form {
   width: 800px;
   height: 385px;
   text-align: center;
@@ -105,3 +105,14 @@ ul {
 .btn_table {
   margin-right: 25px;
 }
+
+th:hover {
+  background-color: rgb(210, 210, 210);
+}
+
+td:hover {
+  background-color: rgb(210, 210, 210);
+}
+/* tr:hover {
+  background-color: rgb(240, 240, 240);
+} */
