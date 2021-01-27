@@ -1,88 +1,107 @@
 body {
-  background-color:rgb(172, 166, 160);
+  background-color:rgb(160, 160, 160);
 }
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
 .contaner {
   margin: 0 auto;
   max-width: 1200px;
 }
-.header {
-  margin-top: 15px;
-  margin-bottom: 15px;
+
+.main_header {
+  margin-top: 12px;
+  margin-bottom: 12px;
   color: rgb(0, 0, 255);
   font-size: 32px;
   text-align: center;
 }
 
-.filters,
-.inputForm,
-.tableForm {
-  background-color: rgb(179, 179, 179);
-  padding: 10px 5px;
-  border: 1px solid #000;
+.fiters_container,
+.students_table_container {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
+  border-left: 1px solid #000;
 }
 
-.inputForm,
-.tableForm {
-  border-top: none;
+.fiters_container {
+  border-top: 1px solid #000;
+  background-color: rgb(180, 180, 180);
 }
 
-.tableForm {
-  border-right: none;
+.students_table_container {
+  background-color: rgb(200, 200, 200);
 }
 
 .fiters_header,
-.tableForm ,
-.inputForm {
+.table_students_header {
+  margin: 0;
+  color: rgb(0, 0, 150);
   font-size: 24px;
   text-align: center;
-  color: rgb(153, 1, 1);
 }
 
-.tableForm ,
-.inputForm,
-.filters_list,
-.input_new_list {
+.filter_label {
+  color: rgb(0, 0, 150);
   font-size: 18px;
-}
-
-.filters_list,
-.input_new_list {
-  list-style-type: none;
-  margin: 0px 0px;
-  padding-left: 0;
-}
-
-.filter_label,
-.input_new_list {
-  color: rgb(2, 103, 121);
   text-align: right;
 }
-.filter_input {
-  margin: 5px;
-  padding-left: 10px;
+
+#okno:target {display: block;}
+
+#okno {
+  width: 800px;
+  height: 385px;
+  text-align: center;
+  padding: 15px;
+  border: 3px solid #0000cc;
+  border-radius: 10px;
+  color: #0000cc;
+  background-color:rgb(220, 220, 220);
+
+  /*позиционируем и центрируем*/
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  opacity: 100;
+  display: none;
 }
 
-.filter_input_field {
-  padding-left: 20px;
+.okno_header {
+  margin-bottom: 20px;
 }
 
-.inputForm {
-  background-color: rgb(149, 193, 195);
+.input_okno_list {
+  margin-bottom: 20px;
 }
 
-.tableForm {
-  background-color: rgb(149, 152, 195);
+.name_label {
+  font-size: 18px;
+  text-align: right;
 }
 
-.new_input_field {
-  padding-left: 0;
+.students_table {
+  background-color: rgb(240, 240, 240);
 }
 
-.new_input_field {
-  margin-bottom: 15px;
-  padding-right: 0;
+.table_students_top {
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 
-.add_stud_btn {
-  margin-bottom: 15px;
+.table {
+  margin-bottom: 0;
+}
+
+.btn_table {
+  margin-right: 25px;
 }
