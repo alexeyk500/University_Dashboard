@@ -106,13 +106,24 @@ ul {
   margin-right: 25px;
 }
 
-th:hover {
+/* hover для ячеек заголовкa таблицы */
+#tableHeadCell_FIO:hover {
+  background-color: rgb(210, 210, 210);
+}
+#tableHeadCell_facultet:hover {
+  background-color: rgb(210, 210, 210);
+}
+#tableHeadCell_dataBeth:hover {
+  background-color: rgb(210, 210, 210);
+}
+#tableHeadCellStartYear:hover {
   background-color: rgb(210, 210, 210);
 }
 
-td:hover {
-  background-color: rgb(210, 210, 210);
-}
+
+
+
+
 /* tr:hover {
   background-color: rgb(240, 240, 240);
 } */

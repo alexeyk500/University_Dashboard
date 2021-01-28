@@ -43,6 +43,7 @@
     }
     // формируем новую таблицу
     const table = document.createElement('table');
+    table.id="studentsTable"
     table.className = 'table students_table';
     poinToPastTable.append(table);
     // формируем заголовок таблицы
@@ -57,23 +58,25 @@
     tr.append(th);
     th = document.createElement('th');
     th.textContent = 'Ф.И.О. студента';
+    th.id = 'tableHeadCell_FIO';
     tr.append(th);
     th = document.createElement('th');
     th.textContent = 'Факультет';
+    th.id = 'tableHeadCell_facultet';
     tr.append(th);
     th = document.createElement('th');
     th.textContent = 'Дата рождения и возраст';
+    th.id = 'tableHeadCell_dataBeth';
     tr.append(th);
     th = document.createElement('th');
     th.textContent = 'Годы обучения и номер курса';
+    th.id = 'tableHeadCellStartYear';
     tr.append(th);
-    console.log(table)
     // Заполняем таблицу студентами
     // формируем тело таблицы
     const tbody = document.createElement('tbody');
     table.append(tbody);
     studentArr.forEach((student, index) => {
-      console.log(index, student)
       tr = document.createElement('tr');
       tbody.append(tr);
       th = document.createElement('th');
@@ -158,21 +161,53 @@
     }
     return ' (' + distinctionYear + ' курс)';
   };
+  // Функция сортировки массива студентов по ФИО по фозрастанию
+  const getSortedFIO = (studentsArr) => {
+    // функция обьединения ФИО
+    const getUnitedFio = (student) => {
+      return student.name  + student.midlename + student.surname;
+    }
+    // Сортируем массив с обьединенными ФИО
+    studentsArr.sort(function(a, b){
+      const nameA=getUnitedFio(a).toLowerCase();
+      const nameB=getUnitedFio(b).toLowerCase();
+      // Сортировка по возрастанию
+      if (nameA > nameB) {
+        return 1;
+      } else {
+        if (nameA < nameB) {
+          return -1;
+        } else {
+          return 0;
+        }
+      }
+    });
+    return studentsArr;
+  }
 
   // Действия после отрисовки контента страницы
   document.addEventListener('DOMContentLoaded',() => {
     // кнопка Добавить студнета
-    let btnAdd = document.getElementById('btn-add');
+    const btnAdd = document.getElementById('btn-add');
     // форма Добавить студента
-    let addStudForm = document.getElementById('add_stud_form');
+    const addStudForm = document.getElementById('add_stud_form');
     // Контенер для таблицы
-    let tableContainer = document.getElementById('table_container');
+    const tableContainer = document.getElementById('table_container');
 
     // Первоначальный рендернинг таблицы
-    renderStudentTable(tableContainer, startStudentsArr())
+    let curentStudentArr = startStudentsArr();
+    renderStudentTable(tableContainer, curentStudentArr)
     // Клик по кнопке Добавить студента
     btnAdd.addEventListener('click',()=>{
       addStudForm.style.display = 'block';
+    });
+    // Сортировки при нажатии ячейки заголовка таблицы - 'ФИО студента'
+    const tableHeaderCellFIO = document.getElementById('tableHeadCell_FIO');
+    tableHeaderCellFIO.addEventListener('click',()=>{
+      // Сортируем массив со студентами и сохраняем его
+      curentStudentArr = getSortedFIO(curentStudentArr);
+      // рендерим таблицу с отсортированым массивом
+      renderStudentTable(tableContainer, curentStudentArr);
     });
   });
 })();
