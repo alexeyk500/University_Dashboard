@@ -11,29 +11,28 @@
 
   // функция возвращающая стартовый массив со студентами
   let startStudentsArr = () => {
-    let newStudent_1 = {name: 'Алексей',
-                        midlename: 'Сергеевич',
-                        surname: 'Степанов',
-                        bethDate: new Date('1975-12-03'),
-                        yearStart: 2020,
-                        facultet: 'Web Developer',}
+    const newStudent_1 = {name: 'Алексей',
+                          midlename: 'Сергеевич',
+                          surname: 'Степанов',
+                          bethDate: new Date('1975-12-03'),
+                          yearStart: 2020,
+                          facultet: 'Web Developer',}
 
-    let newStudent_2 = {name: 'Степан',
-                        midlename: 'Алексеевич',
-                        surname: 'Сергеев',
-                        bethDate: new Date('1988-07-15'),
-                        yearStart: 2019,
-                        facultet: 'Дизайн',}
+    const newStudent_2 = {name: 'Степан',
+                          midlename: 'Алексеевич',
+                          surname: 'Сергеев',
+                          bethDate: new Date('1988-07-15'),
+                          yearStart: 2019,
+                          facultet: 'Дизайн',}
 
-    let newStudent_3 = {name: 'Сергей',
-                        midlename: 'Степанович',
-                        surname: 'Алексеев',
-                        bethDate: new Date('1999-03-01'),
-                        yearStart: 2016,
-                        facultet: 'Разработчик Python',}
+    const newStudent_3 = {name: 'Сергей',
+                          midlename: 'Степанович',
+                          surname: 'Алексеев',
+                          bethDate: new Date('1999-03-01'),
+                          yearStart: 2016,
+                          facultet: 'Разработчик Python',}
     return [newStudent_1, newStudent_2, newStudent_3]
   }
-
   // функция рендеринга таблицы по массиву со студентами
   function renderStudentTable(poinToPastTable, studentArr) {
     // проверяем есть ли уже таблица
@@ -90,13 +89,12 @@
       td.textContent = getStrDate(student.bethDate) + ' ' + getStrAge(student.bethDate);
       tr.append(td);
       td = document.createElement('td');
-      td.textContent = student.yearStart;
+      td.textContent = getStudyPeriod(student.yearStart) + getCurrentCourse(student.yearStart);
       tr.append(td);
 
     });
     poinToPastTable.append(table)
   };
-
   // Функция преобразования даты в требуемый вид
   let getStrDate = (date) => {
     let year  = date.getFullYear();
@@ -116,13 +114,12 @@
     }
     return dayStr + '.' + monthStr + '.' + year.toString()
   };
-
   // Функция определения возраста
   let getStrAge = (date) => {
     let timeDistinction = new Date() - date;
     timeDistinction = Math.floor(timeDistinction / (1000 * 3600 * 24 * 365));
     timeDistinctionStr = timeDistinction.toString();
-    let lastChar = timeDistinctionStr.slice(-1);
+    const lastChar = timeDistinctionStr.slice(-1);
     let difinitionAge =''
     switch (lastChar) {
       case '0':
@@ -145,6 +142,21 @@
         difinitionAge =' лет)';
     }
     return '(' + timeDistinctionStr + difinitionAge;
+  };
+  // Функция определения годов обучения
+  let getStudyPeriod = (yearStart) => {
+    return yearStart + '-' + (yearStart+4)
+  };
+  // Функция определения текущего курса студента
+  let getCurrentCourse = (yearStart) => {
+    const curentDate  = new Date();
+    const curentYear  = curentDate.getFullYear();
+    const curentMonth = curentDate.getMonth()+1;
+    const distinctionYear = curentYear - yearStart;
+    if ((distinctionYear > 4) || ((distinctionYear === 4)&&(curentMonth >= 6))){
+      return ' (закончил)';
+    }
+    return ' (' + distinctionYear + ' курс)';
   };
 
   // Действия после отрисовки контента страницы
