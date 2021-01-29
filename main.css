@@ -57,7 +57,7 @@ ul {
 
 #add_stud_form {
   width: 800px;
-  height: 385px;
+  height: 430px;
   text-align: center;
   padding: 15px;
   border: 3px solid #0000cc;
@@ -116,10 +116,32 @@ ul {
 #tableHeadCell_dataBeth:hover {
   background-color: rgb(210, 210, 210);
 }
-#tableHeadCellStartYear:hover {
+#tableHeadCell_startYear:hover {
   background-color: rgb(210, 210, 210);
 }
 
+/* Секция добавить студента */
+#add_stud_form_container {
+  position: relative;
+}
+
+#error_mesage {
+  color: red;
+  text-align: center;
+  visibility: hidden;
+}
+
+#btn-close {
+  content: 'X';
+  text-decoration:none;
+  color: red;
+  font-size: 28px;
+  font-weight: 600;
+  position: absolute;
+  top: 0;
+  right: 15px;
+  transform: translateY(1px);
+}
 
 
 

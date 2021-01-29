@@ -94,103 +94,84 @@
             <th id="tableHeadCell_FIO" scope="col">ФИО студента</th>
             <th id="tableHeadCell_facultet" scope="col">Факультет</th>
             <th id="tableHeadCell_dataBeth" scope="col">Дата рождения и возраст</th>
-            <th id="tableHeadCellStartYear" scope="col">Годы обучения и номер курса</th>
+            <th id="tableHeadCell_startYear" scope="col">Годы обучения и номер курса</th>
           </tr>
         </thead>
-        <tbody id="studentsTableBody">
-          <tr>
-            <th scope="row">1</th>
-            <td>Иванов Петр Сергеевич</td>
-            <td>БИУС ПЛ НК</td>
-            <td>20.03.2001 (19 лет)</td>
-            <td>2019-2023 (2 курс)</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Сергеев Иван Петрович</td>
-            <td>РТВ ПЛ НК</td>
-            <td>25.05.1998 (22 лет)</td>
-            <td>2016-2020 (Закончил)</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Петров Сергей Иванович</td>
-            <td>БИУС ПЛ НК</td>
-            <td>01.07.2002 (18 лет)</td>
-            <td>2020-2024 (1 курс)</td>
-          </tr>
-        </tbody>
+        <tbody id="studentsTableBody"></tbody>
       </table>
     </section>
 
     <!-- Всплывающее окно для ввода данных нового студента -->
-    <section id="add_stud_form">
-      <form>
+    <section>
+      <form id="add_stud_form" action="#">
         <h2 class="okno_header">Новый студент</h2>
         <ul class="input_okno_list">
           <li class="input_new_item">
             <div class="row">
               <div class="col-4 name_label">
-                <label for="firstname_label">Имя</label>
+                <label for="surname_input">Фамилия</label>
               </div>
               <div class="col-7">
-                <input type="text" id="firstname_label" class="form-control filter_input">
+                <input type="text" id="surname_input" class="form-control filter_input" required>
               </div>
             </div>
           </li>
           <li class="input_new_item">
             <div class="row">
               <div class="col-4 name_label">
-                <label for="surname_label">Фамилия</label>
+                <label for="firstname_input">Имя</label>
               </div>
               <div class="col-7">
-                <input type="text" id="surname_label" class="form-control filter_input">
+                <input type="text" id="firstname_input" class="form-control filter_input" required>
               </div>
             </div>
           </li>
           <li class="input_new_item">
             <div class="row">
               <div class="col-4 name_label">
-                <label for="midlename_label">Отчество</label>
+                <label for="midlename_input">Отчество</label>
               </div>
               <div class="col-7">
-                <input type="text" id="midlename_label" class="form-control filter_input">
+                <input type="text" id="midlename_input" class="form-control filter_input" required>
               </div>
             </div>
           </li>
           <li class="input_new_item">
             <div class="row">
               <div class="col-4 name_label">
-                <label for="data_label">Дата рождения</label>
+                <label for="data_input">Дата рождения</label>
               </div>
               <div class="col-7">
-                <input type="date" id="data_label" class="form-control filter_input">
+                <input type="date" id="data_input" class="form-control filter_input" required>
               </div>
             </div>
           </li>
           <li class="input_new_item">
             <div class="row">
               <div class="col-4 name_label">
-                <label for="year_label">Год начала обучения</label>
+                <label for="year_input">Год начала обучения</label>
               </div>
               <div class="col-7">
-                <input type="text" id="year_label" class="form-control filter_input">
+                <input type="number" id="year_input" class="form-control filter_input" required>
               </div>
             </div>
           </li>
           <li class="input_new_item">
             <div class="row">
               <div class="col-4 name_label">
-                <label for="facultet_label">Факультет</label>
+                <label for="facultet_input">Факультет</label>
               </div>
               <div class="col-7">
-                <input type="text" id="facultet_label" class="form-control filter_input">
+                <input type="text" id="facultet_input" class="form-control filter_input" required>
               </div>
             </div>
           </li>
         </ul>
-        <button type="submit" class="add_stud_btn btn btn-primary">Добавить</button>
+        <p id="error_mesage">Введите все данные</p>
+        <button type="submit" id="btn-add-stud" class="add_stud_btn btn btn-primary">Добавить</button>
+        <a id="btn-close" href="#">X</a>
       </form>
+
     </section>
 </body>
 </html>

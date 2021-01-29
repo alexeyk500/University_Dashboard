@@ -21,7 +21,7 @@
     const newStudent_2 = {name: 'Степан',
                           midlename: 'Алексеевич',
                           surname: 'Сергеев',
-                          bethDate: new Date('1988-07-15'),
+                          bethDate: new Date('2001-07-15'),
                           yearStart: 2019,
                           facultet: 'Дизайн',}
 
@@ -49,7 +49,7 @@
       th.textContent = index + 1;
       tr.append(th);
       let td = document.createElement('td');
-      td.textContent = student.name + ' ' + student.midlename + ' ' + student.surname;
+      td.textContent = student.surname + ' ' + student.name + ' ' + student.midlename;
       tr.append(td);
       td = document.createElement('td');
       td.textContent = student.facultet;
@@ -130,7 +130,7 @@
   const getSortedFIO = (studentsArr) => {
     // функция обьединения ФИО
     const getUnitedFio = (student) => {
-      return student.name  + student.midlename + student.surname;
+      return student.surname + student.name + student.midlename;;
     }
     // Сортируем массив с обьединенными ФИО
     studentsArr.sort(function(a, b){
@@ -169,11 +169,30 @@
     return studentsArr;
   };
   // Функция сортировки массива студентов по дате рождения по возрастанию
-  const getSortedBethDate = (arr) => {
+  const getSortedBethDate = (studentsArr) => {
     // Сортируем массив по названию факультета
-    arr.sort(function(a, b){
+    studentsArr.sort(function(a, b){
       const nameA=a['bethDate'].getTime();
       const nameB=b['bethDate'].getTime();
+      // Сортировка по возрастанию
+      if (nameA > nameB) {
+        return 1;
+      } else {
+        if (nameA < nameB) {
+          return -1;
+        } else {
+          return 0;
+        }
+      }
+    });
+    return studentsArr;
+  };
+  // Функция сортировки массива студентов по году обучения по возрастанию
+  const getSortedStartYear = (studentsArr) => {
+    // Сортируем массив по году обучения по возрастанию
+    studentsArr.sort(function(a, b){
+      const nameA=a.yearStart;
+      const nameB=b.yearStart;
       // Сортировка по возрастанию
       if (nameA < nameB) {
         return 1;
@@ -185,8 +204,52 @@
         }
       }
     });
-    return arr;
+    return studentsArr;
   };
+  // Валидация введенных данных
+  function ValidationEvent(student, errorMessage) {
+    // проверка имени студента
+    if (student.name.length === 0) {
+      errorMessage.style.visibility = 'visible';
+      errorMessage.textContent = "Ошибка в имени студента, оно пустое";
+      return false;
+    }
+    // проверка отчества студента
+    if (student.midlename.length === 0) {
+      errorMessage.style.visibility = 'visible';
+      errorMessage.textContent = "Ошибка в отчестве студента, оно пустое";
+      return false;
+    }
+    // проверка фамилии студента
+    if (student.surname.length === 0) {
+      errorMessage.style.visibility = 'visible';
+      errorMessage.textContent = "Ошибка в фамилии студента, она пустая";
+      return false;
+    }
+    // проверка даты рождения студента
+    if (student.bethDate < new Date('1900-01-01')){
+      errorMessage.style.visibility = 'visible';
+      errorMessage.textContent = "Ошибка в дате рождения, она меньше чем '01.01.1990'";
+      return false;
+    }
+    // проверка года поступления студента
+    if (student.yearStart < 2000){
+      errorMessage.style.visibility = 'visible';
+      errorMessage.textContent = "Ошибка в годе начала обучения, он меньше чем '2000'";
+      return false;
+    }
+    // проверка факультета студента
+    if (student.facultet.length === 0) {
+      errorMessage.style.visibility = 'visible';
+      errorMessage.textContent = "Ошибка в факультете студента, поле пустое";
+      return false;
+    }
+    return true;
+  }
+  // Функция создания нового студента
+  function addNewStudent(student, studentArr) {
+    studentArr.push(student);
+  }
 
   // Действия после отрисовки контента страницы
   document.addEventListener('DOMContentLoaded',() => {
@@ -194,16 +257,64 @@
     const btnAdd = document.getElementById('btn-add');
     // форма Добавить студента
     const addStudForm = document.getElementById('add_stud_form');
+    // инпуты формы Добавить студента
+    const inputSurname = document.getElementById('surname_input');
+    const inputFirstname = document.getElementById('firstname_input');
+    const inputMidlename = document.getElementById('midlename_input');
+    const inputData = document.getElementById('data_input');
+    const inputYear = document.getElementById('year_input');
+    const inputFacultet = document.getElementById('facultet_input');
+    // кнопка Добавить на всплывающем окне
+    const btnAddFloatWindow = document.getElementById('btn-add-stud');
+    // элемент Закрыть на всплывающем окне
+    const btnCloseFloatWindow = document.getElementById('btn-close');
+    // сообщение об ошибке на всплывающем окне
+    const errorMessage = document.getElementById('error_mesage');
     // тело таблицы
     const tableBody = document.getElementById('studentsTableBody');
 
     // Первоначальный рендернинг таблицы
     let curentStudentArr = startStudentsArr();
     renderStudentTable(tableBody, curentStudentArr);
+
     // Клик по кнопке Добавить студента
     btnAdd.addEventListener('click',()=>{
       addStudForm.style.display = 'block';
+      // Очищаем Inputs
+      inputSurname.value = '';
+      inputFirstname.value = 'иванов';
+      inputMidlename.value = 'алексеевич';
+      inputData.value = '2001-03-03';
+      inputYear.value = '2015';
+      inputFacultet.value = 'Дизайн';
+      errorMessage.style.visibility = 'hidden';
     });
+
+    // Подписание всплывающей формы добавления студента
+    addStudForm.addEventListener('submit', ()=>{
+      const new_student = [];
+      new_student.name = document.getElementById('firstname_input').value.trim();
+      new_student.midlename = document.getElementById('midlename_input').value.trim();
+      new_student.surname = document.getElementById('surname_input').value.trim();
+      new_student.bethDate = new Date(document.getElementById('data_input').value);
+      new_student.yearStart = parseInt(document.getElementById('year_input').value.trim());
+      new_student.facultet = document.getElementById('facultet_input').value.trim();
+      const errorMessage = document.getElementById('error_mesage');
+      // Валидация данных
+      if (ValidationEvent(new_student, errorMessage)) {
+        addNewStudent(new_student, curentStudentArr);
+        renderStudentTable(tableBody, curentStudentArr);
+        addStudForm.style.display = 'none';
+      } else {
+        console.log('Валидация не прошла')
+      }
+    });
+    // Клик по кнопке Закрыть во всплывающем окне
+    btnCloseFloatWindow.addEventListener('click',()=>{
+      console.log('Нажато Закрыть');
+      addStudForm.style.display = 'none';
+    });
+
     // Сортировки при нажатии ячейки заголовка таблицы - 'ФИО студента'
     const tableHeaderCellFIO = document.getElementById('tableHeadCell_FIO');
     tableHeaderCellFIO.addEventListener('click',()=>{
@@ -225,9 +336,34 @@
     tableHeaderCellDataBeth.addEventListener('click',()=>{
       // Сортируем массив со студентами и сохраняем его
       curentStudentArr = getSortedBethDate(curentStudentArr);
-      // curentStudentArr = getSortedDataBeth(curentStudentArr);
+      // рендерим таблицу с отсортированым массивом
+      renderStudentTable(tableBody, curentStudentArr);
+    });
+    // Сортировки при нажатии ячейки заголовка таблицы - 'Годы обучения и номер курса'
+    const tableHeaderCellStartYear = document.getElementById('tableHeadCell_startYear');
+    tableHeaderCellStartYear.addEventListener('click',()=>{
+      // Сортируем массив со студентами и сохраняем его
+      curentStudentArr = getSortedStartYear(curentStudentArr);
       // рендерим таблицу с отсортированым массивом
       renderStudentTable(tableBody, curentStudentArr);
     });
   });
 })();
+
+
+// Клик по кнопке Добавить во всплывающем окне
+    // btnAddFloatWindow.addEventListener('click',()=>{
+    //   console.log('Нажато добавить');
+    //   new_student = doVaidation(inputSurname, inputFirstname, inputMidlename, inputData, inputYear, inputFacultet)
+    //   // if (student) {
+    //   //   // Валидация прислала нового студента
+    //   //   addNewStudent(new_student, curentStudentArr)
+    //   //   // Скрываем форму
+    //   //   addStudForm.style.display = 'none';
+    //   //   // рендерим таблицу с отсортированым массивом
+    //   //   renderStudentTable(tableBody, curentStudentArr);
+    //   // } else {
+    //   //   // Валидация не прошла
+    //   //   console.log('Валидация не прошла')
+    //   // }
+    // });
