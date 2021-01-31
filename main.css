@@ -25,6 +25,7 @@ ul {
 .students_table_container {
   padding-top: 12px;
   padding-bottom: 12px;
+  overflow-x: auto;
   border-bottom: 1px solid #000;
   border-right: 1px solid #000;
   border-left: 1px solid #000;
@@ -37,6 +38,17 @@ ul {
 
 .students_table_container {
   background-color: rgb(200, 200, 200);
+  /* max-height: 500px;
+	overflow-x: auto; */
+}
+
+.scroll_part_table {
+  max-height: 350px;
+	overflow-x: auto;
+}
+
+.students_table_head {
+  border-bottom: 1px solid rgb(100, 100, 100);
 }
 
 .fiters_header,
@@ -52,8 +64,6 @@ ul {
   font-size: 18px;
   text-align: right;
 }
-
-/* #add_stud_form:target {display: block;} */
 
 #add_stud_form {
   width: 800px;
@@ -100,24 +110,27 @@ ul {
 
 .table {
   margin-bottom: 0;
+  height: 95%;
+   /* max-height: 95%; */
 }
 
 .btn_table {
   margin-right: 25px;
 }
 
+#tableHeadCell_FIO,
+#tableHeadCell_facultet,
+#tableHeadCell_dataBeth,
+#tableHeadCell_startYear {
+  transition: background 0.3s ease;
+}
+
 /* hover для ячеек заголовкa таблицы */
-#tableHeadCell_FIO:hover {
-  background-color: rgb(210, 210, 210);
-}
-#tableHeadCell_facultet:hover {
-  background-color: rgb(210, 210, 210);
-}
-#tableHeadCell_dataBeth:hover {
-  background-color: rgb(210, 210, 210);
-}
+#tableHeadCell_FIO:hover,
+#tableHeadCell_facultet:hover,
+#tableHeadCell_dataBeth:hover,
 #tableHeadCell_startYear:hover {
-  background-color: rgb(210, 210, 210);
+  background-color: rgb(140, 180, 250);
 }
 
 /* Секция добавить студента */
@@ -143,9 +156,6 @@ ul {
   transform: translateY(1px);
 }
 
-
-
-
-/* tr:hover {
-  background-color: rgb(240, 240, 240);
-} */
+.backGround_color_select{
+  background-color: rgb(220, 120, 120);
+}

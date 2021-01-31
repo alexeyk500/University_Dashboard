@@ -35,7 +35,7 @@
                   <label for="FNS" class="col-form-label">Ф.И.О. cтудента</label>
                 </div>
                 <div class="col-7 filter_input_field">
-                  <input type="text" id="FNS" class="form-control filter_input" aria-describedby="students_fns">
+                  <input type="text" id="filter_FIO" class="form-control filter_input" aria-describedby="students_fio">
                 </div>
               </div>
             </li>
@@ -45,7 +45,7 @@
                   <label for="fakultet" class="col-form-label">Факультет обучения</label>
                 </div>
                 <div class="col-7 filter_input_field">
-                  <input type="text" id="fakultet" class="form-control filter_input" aria-describedby="students_facultet">
+                  <input type="text" id="filter_fakultet" class="form-control filter_input" aria-describedby="students_facultet">
                 </div>
               </div>
             </li>
@@ -55,7 +55,7 @@
                   <label for="timeStart" class="col-form-label">Год начала обучения</label>
                 </div>
                 <div class="col-7 filter_input_field">
-                  <input type="text" id="timeStart" class="form-control filter_input" aria-describedby="students_timeStart">
+                  <input type="text" id="filter_timeStart" class="form-control filter_input" aria-describedby="students_timeStart">
                 </div>
               </div>
             </li>
@@ -65,7 +65,7 @@
                   <label for="timeFinish" class="col-form-label">Год окончания обучения</label>
                 </div>
                 <div class="col-7 filter_input_field">
-                  <input type="text" id="timeFinish" class="form-control filter_input" aria-describedby="students_timeFinish">
+                  <input type="text" id="filter_timeFinish" class="form-control filter_input" aria-describedby="students_timeFinish">
                 </div>
               </div>
             </li>
@@ -82,28 +82,33 @@
           <div class="row align-items-center table_students_top">
             <p class="table_students_header col-9">Список студентов</p>
             <button type="button" id="btn-add" class="btn btn-outline-primary btn_table col-1">Добавить</button>
-            <!-- <p class="col-1"></p> -->
             <button type="button" id="btn-del" class="btn btn-outline-danger btn_table col-1">Удалить</button>
           </div>
         </div>
       </div>
-      <table class="table students_table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th id="tableHeadCell_FIO" scope="col">ФИО студента</th>
-            <th id="tableHeadCell_facultet" scope="col">Факультет</th>
-            <th id="tableHeadCell_dataBeth" scope="col">Дата рождения и возраст</th>
-            <th id="tableHeadCell_startYear" scope="col">Годы обучения и номер курса</th>
-          </tr>
-        </thead>
-        <tbody id="studentsTableBody"></tbody>
-      </table>
+      <div class="students_table">
+        <table class="table">
+          <thead class="students_table_head">
+            <tr>
+              <th class="col-1 text-center" style = "border-right: 1px solid rgb(100, 100, 100);"></th>
+              <th class="col-3 text-center" id="tableHeadCell_FIO">ФИО студента</th>
+              <th class="col-2 text-center" id="tableHeadCell_facultet">Факультет</th>
+              <th class="col-2 text-left" id="tableHeadCell_dataBeth">Дата рождения и возраст</th>
+              <th class="col-3 text-left" id="tableHeadCell_startYear">Годы обучения и номер курса</th>
+            </tr>
+          </thead>
+        </table>
+          <div class="scroll_part_table">
+            <table class="table table-hover">
+              <tbody id="studentsTableBody"></tbody>
+            </table>
+          </div>
+      </div>
     </section>
 
     <!-- Всплывающее окно для ввода данных нового студента -->
     <section>
-      <form id="add_stud_form" action="#">
+      <form id="add_stud_form" action="#" onsubmit="return false;">
         <h2 class="okno_header">Новый студент</h2>
         <ul class="input_okno_list">
           <li class="input_new_item">
