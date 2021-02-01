@@ -38,12 +38,15 @@ ul {
 
 .students_table_container {
   background-color: rgb(200, 200, 200);
-  /* max-height: 500px;
-	overflow-x: auto; */
 }
 
 .scroll_part_table {
   max-height: 350px;
+	overflow-x: auto;
+}
+
+.scroll_part_expelled_table {
+  max-height: 150px;
 	overflow-x: auto;
 }
 
@@ -111,7 +114,6 @@ ul {
 .table {
   margin-bottom: 0;
   height: 95%;
-   /* max-height: 95%; */
 }
 
 .btn_table {
@@ -159,3 +161,65 @@ ul {
 .backGround_color_select{
   background-color: rgb(220, 120, 120);
 }
+
+/* Секция Таблица отчисленных студентов */
+ .expelled_header {
+   color: red;
+ }
+
+ th {
+  margin-right: 0;
+ }
+
+ .col_1,
+ .col_2,
+ .col_3,
+ .col_4,
+ .col_5,
+ .col_6 {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+ }
+
+ .col_1 {
+  width: 30px;
+ }
+ .col_2 {
+  width: 30%;
+ }
+ .col_3 {
+  width: 10%;
+ }
+ .col_4 {
+  width: 20%;
+ }
+ .col_5 {
+  width: 23%;
+ }
+ .col_6 {
+  justify-content: center;
+ }
+
+ .col_1_h {
+  width: 1rem;
+  text-align: left;
+ }
+ .col_2_h {
+  width: 8rem;
+  text-align: center;
+ }
+ .col_3_h {
+  width: 4rem;
+  text-align: center;
+ }
+ .col_4_h {
+  width: 6rem;
+  text-align: left;
+  white-space: nowrap;
+ }
+ .col_5_h {
+  width: 11rem;
+  text-align: left;
+  white-space: nowrap;
+ }

@@ -90,17 +90,87 @@
         <table class="table">
           <thead class="students_table_head">
             <tr>
-              <th class="col-1 text-center" style = "border-right: 1px solid rgb(100, 100, 100);"></th>
-              <th class="col-3 text-center" id="tableHeadCell_FIO">ФИО студента</th>
-              <th class="col-2 text-center" id="tableHeadCell_facultet">Факультет</th>
-              <th class="col-2 text-left" id="tableHeadCell_dataBeth">Дата рождения и возраст</th>
-              <th class="col-3 text-left" id="tableHeadCell_startYear">Годы обучения и номер курса</th>
+              <th>
+                <div class="col_1_h">
+                  <div></div>
+                </div>
+              </th>
+              <th id="tableHeadCell_FIO">
+                <div class="col_2_h">
+                  <div>ФИО студента</div>
+                </div>
+              </th>
+              <th id="tableHeadCell_facultet">
+                <div class="col_3_h">
+                  <div>Факультет</div>
+                </div>
+              </th>
+              <th id="tableHeadCell_dataBeth">
+                <div class="col_4_h">
+                  <div>Дата рождения и возраст</div>
+                </div>
+              </th>
+              <th id="tableHeadCell_startYear">
+                <div class="col_5_h">
+                  <div>Годы обучения и номер курса</div>
+                </div>
+              </th>
             </tr>
           </thead>
         </table>
           <div class="scroll_part_table">
             <table class="table table-hover">
               <tbody id="studentsTableBody"></tbody>
+            </table>
+          </div>
+      </div>
+    </section>
+
+     <!-- Секция Таблица Отчисленных Студентов -->
+     <section id="expelled_table_container" class="container students_table_container">
+      <div class="row align-items-top">
+        <!-- Таблица со студентами -->
+        <div class="table_students">
+          <div class="row align-items-center table_students_top">
+            <p class="table_students_header expelled_header col-11">Список отчисленных студентов</p>
+          </div>
+        </div>
+      </div>
+      <div class="students_table">
+        <table class="table">
+          <thead class="students_table_head">
+            <tr>
+              <th>
+                <div class="col_1_h">
+                  <div></div>
+                </div>
+              </th>
+              <th id="expelled_tableHeadCell_FIO">
+                <div class="col_2_h">
+                  <div>ФИО студента</div>
+                </div>
+              </th>
+              <th id="expelled_tableHeadCell_facultet">
+                <div class="col_3_h">
+                  <div>Факультет</div>
+                </div>
+              </th>
+              <th id="expelled_tableHeadCell_dataBeth">
+                <div class="col_4_h">
+                  <div>Дата рождения и возраст</div>
+                </div>
+              </th>
+              <th id="expelled_tableHeadCell_startYear">
+                <div class="col_5_h">
+                  <div>Год начала обучения</div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+        </table>
+          <div class="scroll_part_expelled_table">
+            <table class="table table-hover">
+              <tbody id="expelledStudentsTableBody"></tbody>
             </table>
           </div>
       </div>

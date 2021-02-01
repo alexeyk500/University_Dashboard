@@ -9,73 +9,99 @@
   };
   // Массив студентов
   const studArr = []
-
-  // функция возвращающая стартовый массив со студентами
+  // функция возвращающая стартовый массив со отчисленными студентами
   let startStudentsArr = () => {
     const newStudent_1 = {name: 'Алексей',
-                          midlename: 'Сергеевич',
-                          surname: 'Степанов',
-                          bethDate: new Date('1975-12-03'),
-                          yearStart: 2020,
-                          facultet: 'Web Developer',};
+    midlename: 'Сергеевич',
+    surname: 'Степанов',
+    bethDate: new Date('1975-12-03'),
+    yearStart: 2020,
+    facultet: 'Web Developer',};
 
     const newStudent_2 = {name: 'Степан',
-                          midlename: 'Алексеевич',
-                          surname: 'Сергеев',
-                          bethDate: new Date('2001-07-15'),
+        midlename: 'Алексеевич',
+        surname: 'Сергеев',
+        bethDate: new Date('2001-07-15'),
+        yearStart: 2019,
+        facultet: 'Дизайн',};
+
+    const newStudent_3 = {name: 'Сергей',
+        midlename: 'Степанович',
+        surname: 'Алексеев',
+        bethDate: new Date('1999-03-01'),
+        yearStart: 2016,
+        facultet: 'Разработчик Python',};
+
+    const newStudent_4 = {name: 'Иван',
+        midlename: 'Петрович',
+        surname: 'Мельник',
+        bethDate: new Date('1998-05-07'),
+        yearStart: 2017,
+        facultet: 'Разработчик Python',};
+
+    const newStudent_5 = {name: 'Наталья',
+        midlename: 'Павловна',
+        surname: 'Конопляник',
+        bethDate: new Date('1988-11-21'),
+        yearStart: 2018,
+        facultet: 'Дизайн',};
+
+    const newStudent_6 = {name: 'Ольга',
+        midlename: 'Геннадьевна',
+        surname: 'Червоткина',
+        bethDate: new Date('1979-06-20'),
+        yearStart: 2020,
+        facultet: 'Дизайн',};
+
+    const newStudent_7 = {name: 'Роман',
+        midlename: 'Владимирович',
+        surname: 'Рябчиков',
+        bethDate: new Date('1987-12-14'),
+        yearStart: 2015,
+        facultet: 'Web Developer',};
+
+    const newStudent_8 = {name: 'Петр',
+        midlename: 'Тимофеевич',
+        surname: 'Рудин',
+        bethDate: new Date('1989-10-23'),
+        yearStart: 2014,
+        facultet: 'Web Developer',};
+
+    return [newStudent_1, newStudent_2, newStudent_3,
+    newStudent_4, newStudent_5, newStudent_6,
+    newStudent_7, newStudent_8,];
+
+  };
+  // функция возвращающая стартовый массив со студентами
+  let startExpelledStudentsArr = () => {
+    const newStudent_1 = {name: 'Роман',
+                            midlename: 'Викторович',
+                            surname: 'Козлов',
+                            bethDate: new Date('1979-06-01'),
+                            yearStart: 2019,
+                            facultet: 'Web Developer',};
+
+    const newStudent_2 = {name: 'Игорь',
+                          midlename: 'Сергеевич',
+                          surname: 'Бармалейкин',
+                          bethDate: new Date('2002-08-11'),
                           yearStart: 2019,
                           facultet: 'Дизайн',};
 
-    const newStudent_3 = {name: 'Сергей',
-                          midlename: 'Степанович',
-                          surname: 'Алексеев',
-                          bethDate: new Date('1999-03-01'),
+    const newStudent_3 = {name: 'Наталья',
+                          midlename: 'Викторовна',
+                          surname: 'Шапокляк',
+                          bethDate: new Date('1998-04-17'),
                           yearStart: 2016,
                           facultet: 'Разработчик Python',};
 
-    const newStudent_4 = {name: 'Иван',
-                          midlename: 'Петрович',
-                          surname: 'Мельник',
-                          bethDate: new Date('1998-05-07'),
-                          yearStart: 2017,
-                          facultet: 'Разработчик Python',};
-
-    const newStudent_5 = {name: 'Наталья',
-                          midlename: 'Павловна',
-                          surname: 'Конопляник',
-                          bethDate: new Date('1988-11-21'),
-                          yearStart: 2018,
-                          facultet: 'Дизайн',};
-
-    const newStudent_6 = {name: 'Ольга',
-                          midlename: 'Геннадьевна',
-                          surname: 'Червоткина',
-                          bethDate: new Date('1979-06-20'),
-                          yearStart: 2020,
-                          facultet: 'Дизайн',};
-
-    const newStudent_7 = {name: 'Роман',
-                          midlename: 'Владимирович',
-                          surname: 'Рябчиков',
-                          bethDate: new Date('1987-12-14'),
-                          yearStart: 2015,
-                          facultet: 'Web Developer',};
-
-    const newStudent_8 = {name: 'Петр',
-                          midlename: 'Тимофеевич',
-                          surname: 'Рудин',
-                          bethDate: new Date('1989-10-23'),
-                          yearStart: 2014,
-                          facultet: 'Web Developer',};
-
-    return [newStudent_1, newStudent_2, newStudent_3,
-            newStudent_4, newStudent_5, newStudent_6,
-            newStudent_7, newStudent_8,];
+    return [newStudent_1, newStudent_2, newStudent_3,];
   };
+
   // функция рендеринга таблицы по массиву со студентами
   function renderStudentTable(poinToPastTable, studentArr) {
     // находим тело таблицы
-    const tbody = document.getElementById('studentsTableBody');
+    const tbody = poinToPastTable;
     // удаляем старое тело таблицы
     while (tbody.firstChild) {
       tbody.removeChild(tbody.firstChild);
@@ -83,27 +109,135 @@
     // формируем новое тело таблицы - Заполняем таблицу студентами
     studentArr.forEach((student, index) => {
       const tr = document.createElement('tr');
-      tbody.append(tr);
-      th = document.createElement('th');
-      th.textContent = index + 1;
-      th.classList = "col-1 text-center";
-      th.style.borderRight = '1px solid rgb(100, 100, 100)'
-      tr.append(th);
+      // Первая ячейка таблицы
       let td = document.createElement('td');
-      td.textContent = student.surname + ' ' + student.name + ' ' + student.midlename;
-      td.classList = "col-3 text-center";
+      let content = document.createElement('div');
+      let container_cell = document.createElement('div');
+      content.textContent = index + 1;
+      container_cell.classList = 'col_1';
+      container_cell.append(content);
+      td.append(container_cell);
+      td.style.borderRight= '1px solid rgb(100, 100, 100)'
       tr.append(td);
+      // Вторая ячейка таблицы
       td = document.createElement('td');
-      td.textContent = student.facultet;
-      td.classList = "col-2 text-center";
+      content = document.createElement('div');
+      container_cell = document.createElement('div');
+      content.textContent = student.surname + ' ' + student.name + ' ' + student.midlename;
+      container_cell.classList = 'col_2';
+      container_cell.append(content);
+      td.append(container_cell);
       tr.append(td);
+      // Третья ячейка таблицы
       td = document.createElement('td');
-      td.textContent = getStrDate(student.bethDate) + ' ' + getStrAge(student.bethDate);
-      td.classList = "col-2 text-left";
+      content = document.createElement('div');
+      container_cell = document.createElement('div');
+      content.textContent = student.facultet;
+      container_cell.classList = 'col_3';
+      container_cell.append(content);
+      td.append(container_cell);
       tr.append(td);
+      // Четвертая ячейка таблицы
       td = document.createElement('td');
-      td.textContent = getStudyPeriod(student.yearStart) + getCurrentCourse(student.yearStart);
-      td.classList = "col-3 text-left";
+      content = document.createElement('div');
+      container_cell = document.createElement('div');
+      content.textContent = getStrDate(student.bethDate) + ' ' + getStrAge(student.bethDate);
+      container_cell.classList = 'col_4';
+      container_cell.append(content);
+      td.append(container_cell);
+      tr.append(td);
+      // Пятая ячейка таблицы
+      td = document.createElement('td');
+      content = document.createElement('div');
+      container_cell = document.createElement('div');
+      content.textContent = getStudyPeriod(student.yearStart) + getCurrentCourse(student.yearStart);
+      container_cell.classList = 'col_5';
+      container_cell.append(content);
+      td.append(container_cell);
+      tr.append(td);
+      // Шестая ячейка таблицы
+      td = document.createElement('td');
+      btn_expell = document.createElement('button');
+      btn_expell.type = 'button';
+      btn_expell.style = 'display: block; font-size: 16px;' // margin-top: 5px; margin-bottom: 5px;'
+      btn_expell.textContent = 'Отчислить'
+      btn_expell.classList = 'btn btn-outline-danger btn_table btn_expell';
+      container_cell = document.createElement('div');
+      container_cell.classList = 'col_6';
+      container_cell.append(btn_expell);
+      td.append(container_cell);
+      tr.append(td);
+      tbody.append(tr);
+    });
+  };
+  // функция рендеринга таблицы по массиву со отчисленными студентами
+  function renderExpelledStudentTable(poinToPastTable, studentArr) {
+    // находим тело таблицы
+    const tbody = poinToPastTable;
+    // удаляем старое тело таблицы
+    while (tbody.firstChild) {
+      tbody.removeChild(tbody.firstChild);
+    }
+    // формируем новое тело таблицы - Заполняем таблицу студентами
+    studentArr.forEach((student, index) => {
+      const tr = document.createElement('tr');
+      // Первая ячейка таблицы
+      let td = document.createElement('td');
+      let content = document.createElement('div');
+      let container_cell = document.createElement('div');
+      content.textContent = index + 1;
+      container_cell.classList = 'col_1';
+      container_cell.append(content);
+      td.append(container_cell);
+      td.style.borderRight= '1px solid rgb(100, 100, 100)'
+      tr.append(td);
+      // Вторая ячейка таблицы
+      td = document.createElement('td');
+      content = document.createElement('div');
+      container_cell = document.createElement('div');
+      content.textContent = student.surname + ' ' + student.name + ' ' + student.midlename;
+      container_cell.classList = 'col_2';
+      container_cell.append(content);
+      td.append(container_cell);
+      tr.append(td);
+      // Третья ячейка таблицы
+      td = document.createElement('td');
+      content = document.createElement('div');
+      container_cell = document.createElement('div');
+      content.textContent = student.facultet;
+      container_cell.classList = 'col_3';
+      container_cell.append(content);
+      td.append(container_cell);
+      tr.append(td);
+      // Четвертая ячейка таблицы
+      td = document.createElement('td');
+      content = document.createElement('div');
+      container_cell = document.createElement('div');
+      content.textContent = getStrDate(student.bethDate) + ' ' + getStrAge(student.bethDate);
+      container_cell.classList = 'col_4';
+      container_cell.append(content);
+      td.append(container_cell);
+      tr.append(td);
+      // Пятая ячейка таблицы
+      td = document.createElement('td');
+      content = document.createElement('div');
+      container_cell = document.createElement('div');
+      content.textContent = '..... ' + student.yearStart + ' год .....';
+      container_cell.classList = 'col_5';
+      container_cell.append(content);
+      td.append(container_cell);
+      tr.append(td);
+      // Шестая ячейка таблицы
+      td = document.createElement('td');
+      btn_expell = document.createElement('button');
+      btn_expell.type = 'button';
+      btn_expell.style = 'display: block; font-size: 16px;' // margin-top: 5px; margin-bottom: 5px;'
+      btn_expell.textContent = 'Восстановить'
+      btn_expell.classList = 'btn btn-outline-primary btn_table btn_return';
+      container_cell = document.createElement('div');
+      container_cell.classList = 'col_6';
+      container_cell.append(btn_expell);
+      td.append(container_cell);
       tr.append(td);
       tbody.append(tr);
     });
@@ -327,11 +461,16 @@
     // элемент сообщение об ошибке на всплывающем окне
     const errorMessage = document.getElementById('error_mesage');
     // элемент тело таблицы
-    const tableBody = document.getElementById('studentsTableBody');
 
-    // Первоначальный рендернинг таблицы
+
+    // Первоначальный рендернинг таблицы Студентов
     let curentStudentArr = startStudentsArr();
+    const tableBody = document.getElementById('studentsTableBody');
     renderStudentTable(tableBody, curentStudentArr);
+    // Первоначальный рендернинг таблицы Отчисленных Студентов
+    let curentExpelledStudentArr = startExpelledStudentsArr();
+    const expelledTableBody = document.getElementById('expelledStudentsTableBody');
+    renderExpelledStudentTable(expelledTableBody, curentExpelledStudentArr);
     // Клик по кнопке Добавить студента
     btnAdd.addEventListener('click',()=>{
       addStudForm.style.display = 'block';
