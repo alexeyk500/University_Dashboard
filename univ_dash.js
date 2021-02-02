@@ -97,9 +97,8 @@
 
     return [newStudent_1, newStudent_2, newStudent_3,];
   };
-
   // функция рендеринга таблицы по массиву со студентами
-  function renderStudentTable(poinToPastTable, studentArr) {
+  function renderStudentTable(poinToPastTable, studentArr, poinToPastExpelledTable, expelledStudentArr) {
     // находим тело таблицы
     const tbody = poinToPastTable;
     // удаляем старое тело таблицы
@@ -162,6 +161,32 @@
       btn_expell.style = 'display: block; font-size: 16px;' // margin-top: 5px; margin-bottom: 5px;'
       btn_expell.textContent = 'Отчислить'
       btn_expell.classList = 'btn btn-outline-danger btn_table btn_expell';
+      btn_expell.index = index + 1;
+      // Добавляем обработчик для кнопки - 'Отчислить'
+      btn_expell.addEventListener('click',()=>{
+      let textConfirm = "Вы уверены что хотите отчислить студента\n";
+        textConfirm += '№ ' + (index + 1).toString() + ' - '
+                        + studentArr[index].surname + ' '
+                        + studentArr[index].name + ' '
+                        + studentArr[index].midlename + ' ?';
+        // Удаление если пользователь подтвердил
+        if (confirm(textConfirm)) {
+          // Удаляем студента из массива студентов
+          expellStudent = studentArr.splice(index, 1)[0];
+          // вставляем отчисленного студента в список отчисленных студентов
+          expelledStudentArr.push(expellStudent);
+          console.log('expellStudent -', expellStudent);
+          // рендерим таблицы
+          renderStudentTable(poinToPastTable, studentArr, poinToPastExpelledTable, expelledStudentArr);
+          renderExpelledStudentTable(poinToPastTable, studentArr, poinToPastExpelledTable, expelledStudentArr)
+        } else {
+          const elems = document.querySelectorAll('tr:hover');
+          if (elems.length > 0) {
+            elems[0].classList.toggle("backGround_color_select");
+          }
+        };
+      });
+
       container_cell = document.createElement('div');
       container_cell.classList = 'col_6';
       container_cell.append(btn_expell);
@@ -171,15 +196,15 @@
     });
   };
   // функция рендеринга таблицы по массиву со отчисленными студентами
-  function renderExpelledStudentTable(poinToPastTable, studentArr) {
+  function renderExpelledStudentTable(poinToPastTable, studentArr, poinToPastExpelledTable, expelledStudentArr) {
     // находим тело таблицы
-    const tbody = poinToPastTable;
+    const tbody = poinToPastExpelledTable;
     // удаляем старое тело таблицы
     while (tbody.firstChild) {
       tbody.removeChild(tbody.firstChild);
     }
     // формируем новое тело таблицы - Заполняем таблицу студентами
-    studentArr.forEach((student, index) => {
+    expelledStudentArr.forEach((student, index) => {
       const tr = document.createElement('tr');
       // Первая ячейка таблицы
       let td = document.createElement('td');
@@ -229,14 +254,39 @@
       tr.append(td);
       // Шестая ячейка таблицы
       td = document.createElement('td');
-      btn_expell = document.createElement('button');
-      btn_expell.type = 'button';
-      btn_expell.style = 'display: block; font-size: 16px;' // margin-top: 5px; margin-bottom: 5px;'
-      btn_expell.textContent = 'Восстановить'
-      btn_expell.classList = 'btn btn-outline-primary btn_table btn_return';
+      btn_restore = document.createElement('button');
+      btn_restore.type = 'button';
+      btn_restore.style = 'display: block; font-size: 16px;'
+      btn_restore.textContent = 'Восстановить'
+      btn_restore.classList = 'btn btn-outline-primary btn_table btn_return';
+      btn_restore.index = index + 1;
+      // Добавляем обработчик для кнопки - 'Восстановить'
+      btn_restore.addEventListener('click',()=>{
+      let textConfirm = "Вы уверены что хотите восстановить студента\n";
+        textConfirm += '№ ' + (index + 1).toString() + ' - '
+                        + expelledStudentArr[index].surname + ' '
+                        + expelledStudentArr[index].name + ' '
+                        + expelledStudentArr[index].midlename + ' ?';
+        // Удаление если пользователь подтвердил
+        if (confirm(textConfirm)) {
+          // Удаляем студента из массива студентов
+          restoreStudent = expelledStudentArr.splice(index, 1)[0];
+          // вставляем отчисленного студента в список отчисленных студентов
+          studentArr.push(restoreStudent);
+          console.log('restoreStudent -', restoreStudent);
+          // рендерим таблицы
+          renderStudentTable(poinToPastTable, studentArr, poinToPastExpelledTable, expelledStudentArr);
+          renderExpelledStudentTable(poinToPastTable, studentArr, poinToPastExpelledTable, expelledStudentArr);
+        } else {
+          const elems = document.querySelectorAll('tr:hover');
+          if (elems.length > 0) {
+            elems[0].classList.toggle("backGround_color_select");
+          }
+        };
+      });
       container_cell = document.createElement('div');
       container_cell.classList = 'col_6';
-      container_cell.append(btn_expell);
+      container_cell.append(btn_restore);
       td.append(container_cell);
       tr.append(td);
       tbody.append(tr);
@@ -460,17 +510,16 @@
     const btnCloseFloatWindow = document.getElementById('btn-close');
     // элемент сообщение об ошибке на всплывающем окне
     const errorMessage = document.getElementById('error_mesage');
-    // элемент тело таблицы
-
-
-    // Первоначальный рендернинг таблицы Студентов
+    // первоначальные массивы студентов
     let curentStudentArr = startStudentsArr();
-    const tableBody = document.getElementById('studentsTableBody');
-    renderStudentTable(tableBody, curentStudentArr);
-    // Первоначальный рендернинг таблицы Отчисленных Студентов
     let curentExpelledStudentArr = startExpelledStudentsArr();
+    // Обьекты тел таблиц
+    const tableBody = document.getElementById('studentsTableBody');
     const expelledTableBody = document.getElementById('expelledStudentsTableBody');
-    renderExpelledStudentTable(expelledTableBody, curentExpelledStudentArr);
+    // Первоначальный рендернинг таблицы Студентов
+    renderStudentTable(tableBody, curentStudentArr, expelledTableBody, curentExpelledStudentArr);
+    // Первоначальный рендернинг таблицы Отчисленных Студентов
+    renderExpelledStudentTable(tableBody, curentStudentArr, expelledTableBody, curentExpelledStudentArr);
     // Клик по кнопке Добавить студента
     btnAdd.addEventListener('click',()=>{
       addStudForm.style.display = 'block';
@@ -516,7 +565,7 @@
       // Сортируем массив со студентами и сохраняем его
       curentStudentArr = getSortedFIO(curentStudentArr);
       // рендерим таблицу с отсортированым массивом
-      renderStudentTable(tableBody, curentStudentArr);
+      renderStudentTable(tableBody, curentStudentArr, expelledTableBody, curentExpelledStudentArr);
     });
     // Сортировки при нажатии ячейки заголовка таблицы - 'Факультет'
     const tableHeaderCellFacultet = document.getElementById('tableHeadCell_facultet');
@@ -524,7 +573,7 @@
       // Сортируем массив со студентами и сохраняем его
       curentStudentArr = getSortedFacultet(curentStudentArr);
       // рендерим таблицу с отсортированым массивом
-      renderStudentTable(tableBody, curentStudentArr);
+      renderStudentTable(tableBody, curentStudentArr, expelledTableBody, curentExpelledStudentArr);
     });
     // Сортировки при нажатии ячейки заголовка таблицы - 'Дата рождения и возраст'
     const tableHeaderCellDataBeth = document.getElementById('tableHeadCell_dataBeth');
@@ -532,7 +581,7 @@
       // Сортируем массив со студентами и сохраняем его
       curentStudentArr = getSortedBethDate(curentStudentArr);
       // рендерим таблицу с отсортированым массивом
-      renderStudentTable(tableBody, curentStudentArr);
+      renderStudentTable(tableBody, curentStudentArr, expelledTableBody, curentExpelledStudentArr);
     });
     // Сортировки при нажатии ячейки заголовка таблицы - 'Годы обучения и номер курса'
     const tableHeaderCellStartYear = document.getElementById('tableHeadCell_startYear');
@@ -540,7 +589,7 @@
       // Сортируем массив со студентами и сохраняем его
       curentStudentArr = getSortedStartYear(curentStudentArr);
       // рендерим таблицу с отсортированым массивом
-      renderStudentTable(tableBody, curentStudentArr);
+      renderStudentTable(tableBody, curentStudentArr, expelledTableBody, curentExpelledStudentArr);
     });
     // Ввод в фильтр ФИО
     const inputFilterFIO = document.getElementById('filter_FIO');
@@ -552,7 +601,7 @@
         };
       });
       // рендерим таблицу с отфильтрованным массивом
-      renderStudentTable(tableBody, filteredStudentsArr);
+      renderStudentTable(tableBody, curentStudentArr, expelledTableBody, curentExpelledStudentArr);
     });
     // Ввод в фильтр Факультет
     const inputFilterFacultet = document.getElementById('filter_fakultet');
@@ -563,7 +612,7 @@
         };
       });
       // рендерим таблицу с отфильтрованным массивом
-      renderStudentTable(tableBody, filteredStudentsArr);
+      renderStudentTable(tableBody, curentStudentArr, expelledTableBody, curentExpelledStudentArr);
     });
     // Ввод в фильтр год начала обучения
     const inputFilterTimeStart = document.getElementById('filter_timeStart');
@@ -574,7 +623,7 @@
         };
       });
       // рендерим таблицу с отфильтрованным массивом
-      renderStudentTable(tableBody, filteredStudentsArr);
+      renderStudentTable(tableBody, curentStudentArr, expelledTableBody, curentExpelledStudentArr);
     });
     // Ввод в фильтр год конца обучения
     const inputFilterTimeFinish = document.getElementById('filter_timeFinish');
@@ -585,13 +634,15 @@
         };
       });
       // рендерим таблицу с отфильтрованным массивом
-      renderStudentTable(tableBody, filteredStudentsArr);
+      renderStudentTable(tableBody, curentStudentArr, expelledTableBody, curentExpelledStudentArr);
     });
     // Обработка клика в теле таблицы студентов
     const tbody = document.getElementById('studentsTableBody');
     tbody.addEventListener('click',()=>{
       const elems = document.querySelectorAll('tr:hover');
-      elems[0].classList.toggle("backGround_color_select");
+      if (elems.length > 0) {
+        elems[0].classList.toggle("backGround_color_select");
+      }
     });
     // Обработка нажатия на кнопку - Удалить студента
     const btnDelete = document.getElementById('btn-del');
@@ -619,7 +670,7 @@
           }
         };
         // рендерим таблицу с массивом после удаления
-        renderStudentTable(tableBody, curentStudentArr);
+        renderStudentTable(tableBody, curentStudentArr, expelledTableBody, curentExpelledStudentArr);
       };
     });
 

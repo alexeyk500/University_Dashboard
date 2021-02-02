@@ -23,7 +23,6 @@ ul {
 
 .fiters_container,
 .students_table_container {
-  padding-top: 12px;
   padding-bottom: 12px;
   overflow-x: auto;
   border-bottom: 1px solid #000;
