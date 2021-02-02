@@ -178,7 +178,9 @@
           console.log('expellStudent -', expellStudent);
           // рендерим таблицы
           renderStudentTable(poinToPastTable, studentArr, poinToPastExpelledTable, expelledStudentArr);
-          renderExpelledStudentTable(poinToPastTable, studentArr, poinToPastExpelledTable, expelledStudentArr)
+          renderExpelledStudentTable(poinToPastTable, studentArr, poinToPastExpelledTable, expelledStudentArr);
+          // Производим запись в Local Storage
+          pushToLocalStorage(studentArr, expelledStudentArr);
         } else {
           const elems = document.querySelectorAll('tr:hover');
           if (elems.length > 0) {
@@ -277,6 +279,8 @@
           // рендерим таблицы
           renderStudentTable(poinToPastTable, studentArr, poinToPastExpelledTable, expelledStudentArr);
           renderExpelledStudentTable(poinToPastTable, studentArr, poinToPastExpelledTable, expelledStudentArr);
+          // Производим запись в Local Storage
+          pushToLocalStorage(studentArr, expelledStudentArr)
         } else {
           const elems = document.querySelectorAll('tr:hover');
           if (elems.length > 0) {
@@ -490,6 +494,52 @@
   function addNewStudent(student, studentArr) {
     studentArr.push(student);
   };
+  // Функция записи массивов студентов в LocalStorage
+  function pushToLocalStorage(studentArr, expStudentArr) {
+    // переводим массивы в JSON формат
+    const studentArrJson    = JSON.stringify(studentArr);
+    const expStudentArrJson = JSON.stringify(expStudentArr);
+    // кладем массивы в localstorage
+    localStorage.setItem('studentArr',    studentArrJson);
+    localStorage.setItem('expStudentArr', expStudentArrJson);
+  };
+  // Функция чтения массивов студентов из LocalStorage
+  function getFromLocalStorage() {
+    let studentArr = null;
+    let expStudentArr = null;
+    // забираем JSON по селектору из из LocalStorage
+    const studentArrJson    = localStorage.getItem('studentArr');
+    //console.log('studentArrJson', studentArrJson);
+    if (studentArrJson !== null){
+      // переводим JSON в маcсив обьектов
+      let studentArrStr  = JSON.parse(studentArrJson);
+      // Переводим дату в дату и года в int
+      studentArr = studentArrStr.map(function(curStudent){
+        return {name: curStudent.name,
+                midlename: curStudent.midlename,
+                surname: curStudent.surname,
+                bethDate: new Date(curStudent.bethDate),
+                yearStart: parseInt(curStudent.yearStart),
+                facultet: curStudent.facultet,}
+      });
+    };
+    const expStudentArrJson = localStorage.getItem('expStudentArr');
+    //console.log('expStudentArrJson', expStudentArrJson);
+    if (expStudentArrJson !== null){
+      // переводим JSON в маcсив обьектов
+      let expStudentArrStr = JSON.parse(expStudentArrJson);
+      // Переводим дату в дату и года в int
+      expStudentArr = expStudentArrStr.map(function(curStudent){
+        return {name: curStudent.name,
+                midlename: curStudent.midlename,
+                surname: curStudent.surname,
+                bethDate: new Date(curStudent.bethDate),
+                yearStart: parseInt(curStudent.yearStart),
+                facultet: curStudent.facultet,}
+      });
+    };
+    return [studentArr, expStudentArr];
+  };
 
   // Действия после отрисовки контента страницы
   document.addEventListener('DOMContentLoaded',() => {
@@ -510,16 +560,34 @@
     const btnCloseFloatWindow = document.getElementById('btn-close');
     // элемент сообщение об ошибке на всплывающем окне
     const errorMessage = document.getElementById('error_mesage');
-    // первоначальные массивы студентов
-    let curentStudentArr = startStudentsArr();
-    let curentExpelledStudentArr = startExpelledStudentsArr();
-    // Обьекты тел таблиц
+    // Первоначальный запуск приложения
+    // Чтение массивов из LocalStorage
+    let curentStudentArr;
+    let curentExpelledStudentArr;
+    [curentStudentArr, curentExpelledStudentArr] = getFromLocalStorage();
+    //console.log('curentStudentArr', curentStudentArr);
+    //console.log('curentExpelledStudentArr', curentExpelledStudentArr);
+    // Если ключей массивов в Local Storage нет, то заполняем их первоначальными массивами
+    if(localStorage.getItem('studentArr') === null) {
+      // первоначальный массив студентов
+      curentStudentArr = startStudentsArr();
+      console.log('curentStudentArr', curentStudentArr);
+    };
+    if(localStorage.getItem('expStudentArr') === null) {
+      // первоначальный массив отчисленных студентов
+      curentExpelledStudentArr = startExpelledStudentsArr();
+    };
+    //console.log('curentStudentArr', curentStudentArr);
+    //console.log('curentExpelledStudentArr', curentExpelledStudentArr);
+    // Получаем обьекты тел таблиц
     const tableBody = document.getElementById('studentsTableBody');
     const expelledTableBody = document.getElementById('expelledStudentsTableBody');
     // Первоначальный рендернинг таблицы Студентов
     renderStudentTable(tableBody, curentStudentArr, expelledTableBody, curentExpelledStudentArr);
     // Первоначальный рендернинг таблицы Отчисленных Студентов
     renderExpelledStudentTable(tableBody, curentStudentArr, expelledTableBody, curentExpelledStudentArr);
+    // Производим запись в Local Storage
+    pushToLocalStorage(curentStudentArr, curentExpelledStudentArr);
     // Клик по кнопке Добавить студента
     btnAdd.addEventListener('click',()=>{
       addStudForm.style.display = 'block';
@@ -535,7 +603,7 @@
     // Подписание всплывающей формы добавления студента
     addStudForm.addEventListener('submit', ()=>{
       // определение элементов формы для взаимодействия с ними
-      const new_student = [];
+      const new_student = {};
       new_student.name = document.getElementById('firstname_input').value.trim();
       new_student.midlename = document.getElementById('midlename_input').value.trim();
       new_student.surname = document.getElementById('surname_input').value.trim();
@@ -550,6 +618,7 @@
         console.log('new_student', new_student);
         addNewStudent(new_student, curentStudentArr);
         renderStudentTable(tableBody, curentStudentArr);
+        pushToLocalStorage(curentStudentArr, curentExpelledStudentArr);
       } else {
         console.log('Валидация студента не прошла')
       }
@@ -601,7 +670,7 @@
         };
       });
       // рендерим таблицу с отфильтрованным массивом
-      renderStudentTable(tableBody, curentStudentArr, expelledTableBody, curentExpelledStudentArr);
+      renderStudentTable(tableBody, filteredStudentsArr, expelledTableBody, curentExpelledStudentArr);
     });
     // Ввод в фильтр Факультет
     const inputFilterFacultet = document.getElementById('filter_fakultet');
@@ -612,7 +681,7 @@
         };
       });
       // рендерим таблицу с отфильтрованным массивом
-      renderStudentTable(tableBody, curentStudentArr, expelledTableBody, curentExpelledStudentArr);
+      renderStudentTable(tableBody, filteredStudentsArr, expelledTableBody, curentExpelledStudentArr);
     });
     // Ввод в фильтр год начала обучения
     const inputFilterTimeStart = document.getElementById('filter_timeStart');
@@ -623,7 +692,7 @@
         };
       });
       // рендерим таблицу с отфильтрованным массивом
-      renderStudentTable(tableBody, curentStudentArr, expelledTableBody, curentExpelledStudentArr);
+      renderStudentTable(tableBody, filteredStudentsArr, expelledTableBody, curentExpelledStudentArr);
     });
     // Ввод в фильтр год конца обучения
     const inputFilterTimeFinish = document.getElementById('filter_timeFinish');
@@ -634,7 +703,7 @@
         };
       });
       // рендерим таблицу с отфильтрованным массивом
-      renderStudentTable(tableBody, curentStudentArr, expelledTableBody, curentExpelledStudentArr);
+      renderStudentTable(tableBody, filteredStudentsArr, expelledTableBody, curentExpelledStudentArr);
     });
     // Обработка клика в теле таблицы студентов
     const tbody = document.getElementById('studentsTableBody');
@@ -653,8 +722,8 @@
       if (delSudents.length > 0) {
         // Достаем их номера и фамилии
         const delStudentArr = Array.from(delSudents).map(function(curStudent) {
-          return({num: curStudent.childNodes[0].innerHTML,
-                  fio: curStudent.childNodes[1].innerHTML});
+          return({num: curStudent.childNodes[0].childNodes[0].childNodes[0].innerHTML,
+                  fio: curStudent.childNodes[1].childNodes[0].childNodes[0].innerHTML});
         });
         // Переводим номера и фамилии в строки
         let textConfirm = "Вы уверены что хотите удалить слудующих студентов ?\n";
@@ -671,6 +740,7 @@
         };
         // рендерим таблицу с массивом после удаления
         renderStudentTable(tableBody, curentStudentArr, expelledTableBody, curentExpelledStudentArr);
+        pushToLocalStorage(curentStudentArr, curentExpelledStudentArr);
       };
     });
 
